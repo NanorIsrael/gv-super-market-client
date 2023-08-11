@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import Product from "../components/Product";
 import { useApi } from "../data/ApiProvider";
-import { ProductProp } from "../data/props";
+import { CartData, cartItem, ProductProp } from "../data/props";
 
 interface QueryProducts {
   products: ProductProp[]
 }
-export default function Home() {
+
+
+export default function Home({cart, setCart}: CartData) {
 
     const [products, setProducts] = useState<undefined | null | ProductProp[]>(undefined)
     const api = useApi()
@@ -15,7 +17,6 @@ export default function Home() {
       (async() => {
         const res = await api.get<QueryProducts>('/product')
         if (res.ok) {
-          console.log(res.body)
           setProducts(res.body?.products)
         } else {
           setProducts(null)
@@ -26,7 +27,7 @@ export default function Home() {
 
     return (
         <article>
-            <h2 className="hero">Welcome to CI Movies</h2>
+            <h2 className="hero">Happy Shopping!</h2>
 
             <section id="movies_container">  
             </section>
@@ -44,11 +45,12 @@ export default function Home() {
                   {
                     products && products.map((p) => <Product 
                     key={p._id}
+                    _id={p._id}
                     name={p.name}
                     price={p.price}
                     quantity={p.quantity}
                     category={p.category}
-                    photo={p.photo}
+                    photo={`./images/${p.photo}`}
                   />
                   )}
                 </>
