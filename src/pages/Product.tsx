@@ -27,7 +27,7 @@ export default function ProductDetail() {
           />
           <button onClick={() => addToCart(product)}>Buy</button>
         </>
-      )}
+    )}
     </>
   );
 }

@@ -3,12 +3,15 @@ import './App.css';
 import Header from './components/Header';
 import ApiProvider from './data/ApiProvider';
 import CartProvider from './data/CartProvider';
+import ProductsProvider from './data/ProductsProvider';
 import HomePage from './pages/HomePage';
 import ProductDetail from './pages/Product';
 
 function App() {
+
   return (
     <ApiProvider>
+      <ProductsProvider>
       <CartProvider>
         <div className="App">
           <Header />
@@ -49,6 +52,7 @@ function App() {
           </footer>
         </div>
       </CartProvider>
+      </ProductsProvider>
     </ApiProvider>
   );
 }

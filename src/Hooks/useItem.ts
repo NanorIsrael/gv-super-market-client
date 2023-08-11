@@ -1,27 +1,27 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useApi } from '../data/ApiProvider';
+import { useProducts } from '../data/ProductsProvider';
 import { ProductProp } from '../data/props';
 
 export default function useItem() {
   const [product, setProduct] = useState<ProductProp | undefined | null>(
     undefined,
   );
+  const products= useProducts()?.products
   const { id } = useParams();
-  const api = useApi();
 
   useEffect(() => {
     (async () => {
-      if (id) {
-        const res = await api.get<{ item: ProductProp }>(`/product/${id}`);
-        if (res.ok) {
-          setProduct(res.body?.item);
+      if (id && products) {
+        const res = products.filter((item) => item._id === id);
+        if (res) {
+          setProduct(res[0]);
         } else {
           setProduct(null);
         }
       }
     })();
-  }, [id, api]);
+  }, [id, products]);
 
   return {
     product,

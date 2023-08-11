@@ -1,29 +1,11 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Product from '../components/Product';
-import { useApi } from '../data/ApiProvider';
-import { CartData, CartItem, ProductProp } from '../data/props';
-
-interface QueryProducts {
-  products: ProductProp[];
-}
+import { useProducts } from '../data/ProductsProvider';
+import { ProductProp } from '../data/props';
 
 export default function Home() {
-  const [products, setProducts] = useState<undefined | null | ProductProp[]>(
-    undefined,
-  );
-  const api = useApi();
-
-  useEffect(() => {
-    (async () => {
-      const res = await api.get<QueryProducts>('/product');
-      if (res.ok) {
-        setProducts(res.body?.products);
-      } else {
-        setProducts(null);
-      }
-    })();
-  }, [api]);
+const products = useProducts()?.products
+console.log(products)
 
   return (
     <article>

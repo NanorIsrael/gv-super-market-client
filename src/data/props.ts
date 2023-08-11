@@ -1,5 +1,7 @@
 // import { Dispatch, SetStateAction } from "react"
 
+import { Dispatch, SetStateAction } from "react";
+
 export interface ProductProp {
   _id?: string;
   name: string;
@@ -22,4 +24,8 @@ export interface CartData {
   addToCart: (item: ProductProp) => void;
 }
 
+export interface ProductProviderProps {
+    products: ProductProp[] | null
+    setProducts: Dispatch<SetStateAction<ProductProp[] | null>>
+}
 // Dispatch<SetStateAction<CartItem[] | []>>;
