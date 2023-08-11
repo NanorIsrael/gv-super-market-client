@@ -5,7 +5,7 @@ import {
   useContext,
   useMemo,
 } from 'react';
-import httpClient, {HTTPClient} from '../clients/httpClient';
+import httpClient, { HTTPClient } from '../clients/httpClient';
 import { useFlash } from './FlashProvider';
 
 const ApiContext = createContext<HTTPClient | null>(null);
