@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Product from "../components/Product";
 import { useApi } from "../data/ApiProvider";
-import { CartData, cartItem, ProductProp } from "../data/props";
+import { CartData, CartItem, ProductProp } from "../data/props";
 
 interface QueryProducts {
   products: ProductProp[]
 }
 
 
-export default function Home({cart, setCart}: CartData) {
+export default function Home() {
 
     const [products, setProducts] = useState<undefined | null | ProductProp[]>(undefined)
     const api = useApi()
@@ -38,21 +39,28 @@ export default function Home({cart, setCart}: CartData) {
                 <>
                   <p>Loading...</p>
                 </>
-              )
-              :
+              ) :
               (
                 <>
                   {
-                    products && products.map((p) => <Product 
-                    key={p._id}
-                    _id={p._id}
-                    name={p.name}
-                    price={p.price}
-                    quantity={p.quantity}
-                    category={p.category}
-                    photo={`./images/${p.photo}`}
-                  />
+                    products && products.map((p) => (
+                      <div key={p._id}>
+                          <Product 
+                            _id={p._id}
+                            name={p.name}
+                            price={p.price}
+                            quantity={p.quantity}
+                            category={p.category}
+                            photo={`./images/${p.photo}`}
+                    
+                        />
+                        <Link to={`/product/${p._id}`}><button>Buy</button></Link>
+                      </div>
+                     
+                    )
+                    
                   )}
+
                 </>
               )
             }

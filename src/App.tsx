@@ -1,31 +1,19 @@
-import { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
-import ApiProvider from './data/ApiProvider';
-import { cartItem } from './data/props';
+import Header from './components/Header';
+import ApiProvider from './data/ApiProvider'
+import CartProvider from './data/CartProvider';
 import HomePage from './pages/HomePage';
 import ProductDetail from './pages/Product';
 
 function App() {
-const [cart, setCart] = useState<cartItem[]>([])
-// const cartSize = Object.key
+
 
   return (
     <ApiProvider>
+    <CartProvider>
     <div className="App">
-       <header>
-        <nav>
-           <h1><a href="/" className="header__links">CEDI Mart</a></h1>
-        </nav>
-        <form id="search_form">
-            <input id="search_box" type="search" name="searchbox" placeholder="search movie"/>
-            <button id="search_btn" type="submit">search</button>
-        </form>
-        <p>
-          <img src={''} alt="cart"/>
-          <span>{cart.length}</span>
-        </p>
-      </header>
+      <Header/>
       <Routes>      
          <Route
               path="*"
@@ -36,7 +24,7 @@ const [cart, setCart] = useState<cartItem[]>([])
                           path="/"
                           element={
                             //  <PublicRoute>
-                              <HomePage cart={cart} setCart={setCart}/>
+                              <HomePage />
                             //  </PublicRoute>
                           }
                         /> 
@@ -45,7 +33,7 @@ const [cart, setCart] = useState<cartItem[]>([])
                       path="/product/:id"
                       element={
                         //  <PublicRoute>
-                          <ProductDetail cart={cart} setCart={setCart}/>
+                          <ProductDetail />
                         //  </PublicRoute>
                       }
                     />
@@ -62,6 +50,7 @@ const [cart, setCart] = useState<cartItem[]>([])
               </p>
           </footer>
     </div>
+    </CartProvider>
      </ApiProvider>
   );
 }

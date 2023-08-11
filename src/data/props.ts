@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react"
+// import { Dispatch, SetStateAction } from "react"
 
 export interface ProductProp {
     _id?: string
@@ -8,15 +8,18 @@ export interface ProductProp {
     category: string
     photo: string
     isDetail?: boolean
+    sku?: string
 }
 
-export interface cartItem {
+export interface CartItem {
     id: string
     quantity: number
-    sku: []
+    sku: string
   }
 
 export interface CartData {
-    cart: cartItem[]
-    setCart: Dispatch<SetStateAction<cartItem[] | []>>;
-  }
+    cart: CartItem[]
+    addToCart: (item: ProductProp) => void
+}
+
+// Dispatch<SetStateAction<CartItem[] | []>>;

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ProductProp } from "../data/props";
 
-export default function Product({name, price, quantity, category, photo, _id, isDetail}: ProductProp) {
+export default function Product({name, price, quantity, category, photo, _id, sku, isDetail}: ProductProp) {
 
     return (
         <figure>
@@ -12,12 +12,13 @@ export default function Product({name, price, quantity, category, photo, _id, is
                    { 
                         isDetail &&  (
                             <>
-                             <p><strong>quantity:</strong>{quantity}</p>
-                            <p><strong>category:</strong>{category}</p> 
+                                <p><strong>quantity:</strong>{quantity}</p>
+                                <p><strong>sku:</strong>{sku}</p> 
+                                <p><strong>category:</strong>{category}</p> 
+
                             </>
                         )
                    }
-                    <button>Buy</button>
                 </figcaption>
         </figure>
     )
