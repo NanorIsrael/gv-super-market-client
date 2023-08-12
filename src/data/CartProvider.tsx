@@ -14,7 +14,7 @@ import { CartData, CartItem, ProductProp, ProductProviderProps } from './props';
 const CartContext = createContext<CartData | null>(null);
 export default function CartProvider({ children }: { children: ReactElement }) {
   const [cart, setCart] = useState<CartItem[]>([]);
-  const { products, setProducts }  = useProducts() as ProductProviderProps;
+  const { products, setProducts } = useProducts() as ProductProviderProps;
   const flash = useFlash();
 
   const onError = useCallback(() => {
@@ -38,21 +38,21 @@ export default function CartProvider({ children }: { children: ReactElement }) {
             sku: item.sku!,
           };
           const cartLength = cart.length;
-          console.log('here', cartLength)
+          console.log('here', cartLength);
 
           setCart([...cart, localCart]);
 
           if (cart.length + 1 !== cartLength) {
-           const updatedProducts: ProductProp[] = []
-           products?.forEach(p => {
-                if (p._id === item._id) {
-                    const updatedQuatity = item.quantity - 1 
-                    updatedProducts.push({ ...p, quantity: updatedQuatity })
-                } else {
-                    updatedProducts.push(p)
-                }
-            })
-            setProducts && setProducts(updatedProducts)
+            const updatedProducts: ProductProp[] = [];
+            products?.forEach((p) => {
+              if (p._id === item._id) {
+                const updatedQuatity = item.quantity - 1;
+                updatedProducts.push({ ...p, quantity: updatedQuatity });
+              } else {
+                updatedProducts.push(p);
+              }
+            });
+            setProducts && setProducts(updatedProducts);
           }
         }
       }

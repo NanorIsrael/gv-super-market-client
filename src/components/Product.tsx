@@ -10,7 +10,9 @@ export default function Product({
   _id,
   sku,
   isDetail,
+  isConfirm,
 }: ProductProp) {
+  const isAvailable = quantity >= 1;
   return (
     <figure>
       <Link to={`/product/${_id}`}>
@@ -28,6 +30,10 @@ export default function Product({
             {price.toFixed(2)}
           </span>{' '}
         </p>
+        <p>
+          <strong>Available:</strong>
+          <span>{isAvailable ? 'Yes' : 'No'}</span>{' '}
+        </p>
         {isDetail && (
           <>
             <p>
@@ -41,6 +47,21 @@ export default function Product({
             <p>
               <strong>category:</strong>
               {category}
+            </p>
+          </>
+        )}
+        {isConfirm && (
+          <>
+            <p>
+              <strong>quantity:</strong>
+              <input type={'number'} min={1} max={quantity} />
+            </p>
+            <p>
+              <strong>sku:</strong>
+              {/* <select>
+                  <option>{sku}</option>
+              </select> */}
+              {sku}
             </p>
           </>
         )}

@@ -7,7 +7,7 @@ export default function useItem() {
   const [product, setProduct] = useState<ProductProp | undefined | null>(
     undefined,
   );
-  const products= useProducts()?.products
+  const products = useProducts()?.products;
   const { id } = useParams();
 
   useEffect(() => {

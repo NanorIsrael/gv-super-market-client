@@ -1,11 +1,13 @@
+import { Navigate, useNavigate } from 'react-router-dom';
+import ConfirmScreen from '../components/CornfirmScreen';
 import Product from '../components/Product';
 import { useCart } from '../data/CartProvider';
 import { CartData } from '../data/props';
 import useItem from '../Hooks/useItem';
 
 export default function ProductDetail() {
-  const { addToCart } = useCart() as CartData;
   const { product } = useItem();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -25,9 +27,10 @@ export default function ProductDetail() {
             photo={`../images/${product.photo}`}
             sku={product.sku}
           />
-          <button onClick={() => addToCart(product)}>Buy</button>
+          <button onClick={() => navigate(`confirm`)}>Buy</button>
+          <button onClick={() => navigate('/')}>Contiue Shoping</button>
         </>
-    )}
+      )}
     </>
   );
 }

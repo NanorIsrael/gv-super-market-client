@@ -1,6 +1,6 @@
 // import { Dispatch, SetStateAction } from "react"
 
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from 'react';
 
 export interface ProductProp {
   _id?: string;
@@ -11,6 +11,7 @@ export interface ProductProp {
   photo: string;
   isDetail?: boolean;
   sku?: string;
+  isConfirm?: boolean;
 }
 
 export interface CartItem {
@@ -25,7 +26,7 @@ export interface CartData {
 }
 
 export interface ProductProviderProps {
-    products: ProductProp[] | null
-    setProducts: Dispatch<SetStateAction<ProductProp[] | null>>
+  products: ProductProp[] | null;
+  setProducts: Dispatch<SetStateAction<ProductProp[] | null>>;
 }
 // Dispatch<SetStateAction<CartItem[] | []>>;
