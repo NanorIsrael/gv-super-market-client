@@ -26,6 +26,7 @@ export default function ProductDetail() {
             category={product.category}
             photo={`../images/${product.photo}`}
             sku={product.sku}
+            isAvailable={product.isAvailable}
           />
           <button onClick={() => navigate(`confirm`)}>Buy</button>
           <button onClick={() => navigate('/')}>Contiue Shoping</button>

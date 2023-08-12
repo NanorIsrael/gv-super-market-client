@@ -1,12 +1,16 @@
-import { useState } from 'react';
+import { LegacyRef, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Product from '../components/Product';
 import { useCart } from '../data/CartProvider';
+import { useFlash } from '../data/FlashProvider';
 import { CartData } from '../data/props';
 import useItem from '../Hooks/useItem';
 import { Modal } from './Modal';
 
 export default function ConfirmScreen() {
+  const [orderQuantity, setOrderQuantity] = useState<number>(1);
+  const [toggleStock, settoggleStock] = useState<boolean>(false);
+
   const { addToCart } = useCart() as CartData;
   const { product } = useItem();
   const navigate = useNavigate();
@@ -28,11 +32,33 @@ export default function ConfirmScreen() {
             category={product.category}
             photo={`../../images/${product.photo}`}
             sku={product.sku}
+            isAvailable={product.isAvailable}
           />
+
+          <p>
+            <strong>quantity:</strong>
+            <input
+              type={'number'}
+              min={1}
+              max={product.quantity}
+              onChange={(e) => {
+                setOrderQuantity(parseInt(e.target.value));
+              }}
+            />
+          </p>
+          {(toggleStock || !product.isAvailable) && (
+            <p>Oops! looks like product is sold out, check in later.</p>
+          )}
+
           <button
             onClick={() => {
-              addToCart(product);
-              navigate(`/product/${product._id}`);
+              if (product.quantity > 0 || !product.isAvailable) {
+                addToCart(product, orderQuantity);
+                navigate(`/product/${product._id}`);
+              } else {
+                // useFlash()
+                settoggleStock(true);
+              }
             }}
           >
             Confirm
@@ -48,7 +74,4 @@ export default function ConfirmScreen() {
       )}
     </Modal>
   );
-}
-function usetSate(): [any, any] {
-  throw new Error('Function not implemented.');
 }

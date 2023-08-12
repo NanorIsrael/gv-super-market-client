@@ -23,30 +23,26 @@ export default function CartProvider({ children }: { children: ReactElement }) {
   }, [flash]);
 
   const addToCart = useMemo(
-    () => (item: ProductProp) => {
+    () => (item: ProductProp, orderQuantity: number) => {
       // ensure item is not already added
       if (!item) {
         return;
       } else {
-        const searchItem = cart.filter((p) => p.id === item._id);
-        if (searchItem.length > 0) {
-          return;
-        } else {
-          const localCart: CartItem = {
-            id: item._id!,
-            quantity: 1,
-            sku: item.sku!,
-          };
-          const cartLength = cart.length;
-          console.log('here', cartLength);
-
-          setCart([...cart, localCart]);
-
-          if (cart.length + 1 !== cartLength) {
+        const foundItem = cart.filter((p) => p.id === item._id);
+        if (foundItem.length > 0) {
+          if (foundItem[0].quantity !== orderQuantity) {
+            const updatedItem = cart.filter((i) => {
+              if (i.id === item._id) {
+                i.quantity += orderQuantity;
+              }
+              return i;
+            });
+            const newCart = cart.filter((p) => p.id !== updatedItem[0].id);
+            setCart([...newCart, ...updatedItem]);
             const updatedProducts: ProductProp[] = [];
             products?.forEach((p) => {
               if (p._id === item._id) {
-                const updatedQuatity = item.quantity - 1;
+                const updatedQuatity = item.quantity - orderQuantity;
                 updatedProducts.push({ ...p, quantity: updatedQuatity });
               } else {
                 updatedProducts.push(p);
@@ -54,6 +50,27 @@ export default function CartProvider({ children }: { children: ReactElement }) {
             });
             setProducts && setProducts(updatedProducts);
           }
+          return;
+        } else {
+          const localCart: CartItem = {
+            id: item._id!,
+            quantity: orderQuantity,
+            sku: item.sku!,
+          };
+          const cartLength = cart.length;
+
+          setCart([...cart, localCart]);
+
+          const updatedProducts: ProductProp[] = [];
+          products?.forEach((p) => {
+            if (p._id === item._id) {
+              const updatedQuatity = item.quantity - orderQuantity;
+              updatedProducts.push({ ...p, quantity: updatedQuatity });
+            } else {
+              updatedProducts.push(p);
+            }
+          });
+          setProducts && setProducts(updatedProducts);
         }
       }
     },

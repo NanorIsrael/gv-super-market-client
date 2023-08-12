@@ -12,6 +12,7 @@ export interface ProductProp {
   isDetail?: boolean;
   sku?: string;
   isConfirm?: boolean;
+  isAvailable: boolean;
 }
 
 export interface CartItem {
@@ -22,7 +23,7 @@ export interface CartItem {
 
 export interface CartData {
   cart: CartItem[];
-  addToCart: (item: ProductProp) => void;
+  addToCart: (item: ProductProp, orderQuantity: number) => void;
 }
 
 export interface ProductProviderProps {

@@ -34,6 +34,7 @@ export default function Home() {
                     quantity={p.quantity}
                     category={p.category}
                     photo={`./images/${p.photo}`}
+                    isAvailable={p.isAvailable}
                   />
                   <Link to={`/product/${p._id}`}>
                     <button>Buy</button>

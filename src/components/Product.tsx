@@ -11,8 +11,9 @@ export default function Product({
   sku,
   isDetail,
   isConfirm,
+  isAvailable,
 }: ProductProp) {
-  const isAvailable = quantity >= 1;
+  console.log(isAvailable);
   return (
     <figure>
       <Link to={`/product/${_id}`}>
@@ -52,10 +53,6 @@ export default function Product({
         )}
         {isConfirm && (
           <>
-            <p>
-              <strong>quantity:</strong>
-              <input type={'number'} min={1} max={quantity} />
-            </p>
             <p>
               <strong>sku:</strong>
               {/* <select>
