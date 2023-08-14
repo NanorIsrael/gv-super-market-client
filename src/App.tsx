@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import ConfirmScreen from './components/CornfirmScreen';
+import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import ApiProvider from './data/ApiProvider';
 import CartProvider from './data/CartProvider';
@@ -53,15 +54,23 @@ function App() {
                 <Route
                   path="*"
                   element={
-                    // <PrivateRoute>
+                    <PrivateRoute>
 
                     <Routes>
+                    <Route
+                  path="/"
+                  element={
+                    <PublicRoute>
+                      <HomePage />
+                    </PublicRoute>
+                  }
+                />
                       <Route
                         path="/product/:id"
                         element={
-                          //  <PublicRoute>
+                           <PublicRoute>
                           <ProductDetail />
-                          //  </PublicRoute>
+                          </PublicRoute>
                         }
                       />
                       <Route
@@ -98,7 +107,7 @@ function App() {
                       />
                       <Route path="*" element={<Navigate to="/" />} />
                     </Routes>
-                    // </PrivateRoute>
+                   </PrivateRoute>
                   }
                 />
               </Routes>
