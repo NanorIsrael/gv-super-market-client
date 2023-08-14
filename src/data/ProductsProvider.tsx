@@ -1,16 +1,12 @@
 import {
   createContext,
-  Dispatch,
   ReactElement,
-  SetStateAction,
-  useCallback,
   useContext,
   useEffect,
   useState,
 } from 'react';
 
 import { useApi } from './ApiProvider';
-import { useFlash } from './FlashProvider';
 import { ProductProp, ProductProviderProps } from './props';
 
 const ProductsContext = createContext<ProductProviderProps | null>(null);

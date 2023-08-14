@@ -23,6 +23,7 @@ export interface CartItem {
 
 export interface CartData {
   cart: CartItem[];
+  setCart: Dispatch<React.SetStateAction<CartItem[]>>;
   addToCart: (item: ProductProp, orderQuantity: number) => void;
 }
 

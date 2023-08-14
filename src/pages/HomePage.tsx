@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
 import Product from '../components/Product';
 import { useProducts } from '../data/ProductsProvider';
-import { ProductProp } from '../data/props';
 
 export default function Home() {
   const products = useProducts()?.products;
-  console.log(products);
 
   return (
     <article>

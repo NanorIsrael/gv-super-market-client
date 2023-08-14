@@ -13,7 +13,6 @@ export default function Product({
   isConfirm,
   isAvailable,
 }: ProductProp) {
-  console.log(isAvailable);
   return (
     <figure>
       <Link to={`/product/${_id}`}>

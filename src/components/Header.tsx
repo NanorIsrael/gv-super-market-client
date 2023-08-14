@@ -1,7 +1,11 @@
+import { Link } from 'react-router-dom';
 import { useCart } from '../data/CartProvider';
 import { CartData } from '../data/props';
 
 export default function Header() {
+  const customer = {
+    _id: '12345',
+  };
   const { cart } = useCart() as CartData;
   return (
     <header>
@@ -24,8 +28,11 @@ export default function Header() {
         </button>
       </form>
       <p>
-        <img src={''} alt="cart" />
-        <span>{cart.length}</span>
+        {/* <img src={''} alt="cart" /> */}
+        <Link to={`customer/${customer._id}/cart`}>
+          <span>&#128722;</span>
+          <span>{cart.length}</span>
+        </Link>
       </p>
     </header>
   );

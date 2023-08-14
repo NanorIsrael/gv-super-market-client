@@ -17,8 +17,13 @@ export const Modal: React.FC<IModal> = ({ children, xtraclass }) => {
   }
 
   useEffect(() => {
+    // hide root
+    const root = document.getElementById('root');
     const modalRoot = document.getElementById('modal');
 
+    if (root) {
+      root.hidden = true;
+    }
     if (!modalRoot || !modalref.current) {
       return;
     }
@@ -28,7 +33,6 @@ export const Modal: React.FC<IModal> = ({ children, xtraclass }) => {
         event.stopPropagation();
 
         if (id) {
-          console.log(id);
           navigate(`/product/${id}`);
         }
       }
@@ -41,6 +45,9 @@ export const Modal: React.FC<IModal> = ({ children, xtraclass }) => {
       if (modalRoot && modalref.current) {
         modalRoot.removeChild(modalref.current);
         modalRoot.removeEventListener('click', handleClick);
+      }
+      if (root) {
+        root.hidden = false;
       }
     };
   }, [id, navigate]);

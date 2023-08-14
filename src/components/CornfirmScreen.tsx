@@ -1,19 +1,19 @@
-import { LegacyRef, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Product from '../components/Product';
 import { useCart } from '../data/CartProvider';
-import { useFlash } from '../data/FlashProvider';
 import { CartData } from '../data/props';
-import useItem from '../Hooks/useItem';
+import useItem from '../hooks/useItem';
 import { Modal } from './Modal';
 
 export default function ConfirmScreen() {
-  const [orderQuantity, setOrderQuantity] = useState<number>(1);
   const [toggleStock, settoggleStock] = useState<boolean>(false);
 
-  const { addToCart } = useCart() as CartData;
+  const { cart, addToCart } = useCart() as CartData;
   const { product } = useItem();
   const navigate = useNavigate();
+  const itemInCart = cart.filter((p) => p.id === product?._id);
+  const [orderQuantity, setOrderQuantity] = useState<number>(1);
 
   return (
     <Modal xtraclass={''}>
@@ -41,6 +41,7 @@ export default function ConfirmScreen() {
               type={'number'}
               min={1}
               max={product.quantity}
+              defaultValue={itemInCart.length > 0 ? itemInCart[0]?.quantity : 1}
               onChange={(e) => {
                 setOrderQuantity(parseInt(e.target.value));
               }}
@@ -54,7 +55,8 @@ export default function ConfirmScreen() {
             onClick={() => {
               if (product.quantity > 0 || !product.isAvailable) {
                 addToCart(product, orderQuantity);
-                navigate(`/product/${product._id}`);
+                navigate(-1);
+                // window.history.back()
               } else {
                 // useFlash()
                 settoggleStock(true);
@@ -65,7 +67,7 @@ export default function ConfirmScreen() {
           </button>
           <button
             onClick={() => {
-              navigate(`/product/${product._id}`);
+              navigate(-1);
             }}
           >
             Cancel

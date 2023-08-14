@@ -1,9 +1,6 @@
-import { Navigate, useNavigate } from 'react-router-dom';
-import ConfirmScreen from '../components/CornfirmScreen';
+import { useNavigate } from 'react-router-dom';
 import Product from '../components/Product';
-import { useCart } from '../data/CartProvider';
-import { CartData } from '../data/props';
-import useItem from '../Hooks/useItem';
+import useItem from '../hooks/useItem';
 
 export default function ProductDetail() {
   const { product } = useItem();

@@ -1,25 +1,31 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import ConfirmScreen from './components/CornfirmScreen';
-import Header from './components/Header';
 import ApiProvider from './data/ApiProvider';
 import CartProvider from './data/CartProvider';
 import ProductsProvider from './data/ProductsProvider';
+import Layout from './layout/Layout';
+import Cart from './pages/Cart';
+import CheckOutPage from './pages/Checkout';
 import HomePage from './pages/HomePage';
+import OrdersPage from './pages/OrdersPage';
 import ProductDetail from './pages/Product';
 
 function App() {
+  const customer = {
+    _id: '12345',
+  };
   return (
     <ApiProvider>
       <ProductsProvider>
         <CartProvider>
-          <div className="App">
-            <Header />
+          <Layout>
             <Routes>
               <Route
                 path="*"
                 element={
                   // <PrivateRoute>
+
                   <Routes>
                     <Route
                       path="/"
@@ -46,19 +52,37 @@ function App() {
                         //  </PublicRoute>
                       }
                     />
+                    <Route
+                      path={`customer/${customer._id}/cart`}
+                      element={
+                        //  <PublicRoute>
+                        <Cart />
+                        //  </PublicRoute>
+                      }
+                    />
+                    <Route
+                      path={`customer/${customer._id}/orders`}
+                      element={
+                        //  <PublicRoute>
+                        <OrdersPage />
+                        //  </PublicRoute>
+                      }
+                    />
+                    <Route
+                      path={`customer/${customer._id}/checkout`}
+                      element={
+                        //  <PublicRoute>
+                        <CheckOutPage />
+                        //  </PublicRoute>
+                      }
+                    />
                     <Route path="*" element={<Navigate to="/" />} />
                   </Routes>
                   // </PrivateRoute>
                 }
               />
             </Routes>
-            <footer className="footer">
-              <p>
-                <span className="nowrap">Copyright &copy;</span>
-                <span className="nowrap">GraceValley Technologies</span>
-              </p>
-            </footer>
-          </div>
+          </Layout>
         </CartProvider>
       </ProductsProvider>
     </ApiProvider>
