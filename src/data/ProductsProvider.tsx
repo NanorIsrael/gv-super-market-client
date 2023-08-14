@@ -22,7 +22,9 @@ export default function ProductsProvider({
 
   useEffect(() => {
     (async () => {
-      const res = await api.get<{ products: ProductProp[] | null }>('/product');
+      const res = await api.get<{ products: ProductProp[] | null }>(
+        '/products',
+      );
       if (res.ok) {
         setProducts(res.body?.products as ProductProp[] | null);
       } else {

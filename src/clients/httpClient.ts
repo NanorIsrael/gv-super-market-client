@@ -90,20 +90,23 @@ export default class httpClient {
       query = '?' + query;
     }
     try {
-      // const accessToken = localStorage.getItem('accessToken');
-      // if (
-      //   !accessToken &&
-      //   options.url !== '/users/tokens' &&
-      //   options.url !== '/users/token'
-      // ) {
-      //   throw new Error('Access token not found');
-      // }
+      // console.log('call backend')
 
+      const accessToken = localStorage.getItem('accessToken');
+      if (
+        !accessToken &&
+        options.url !== '/users/tokens' &&
+        options.url !== '/users/token' &&
+        options.url !== '/products'
+      ) {
+        throw new Error('Access token not found');
+      }
+      console.log('call backend');
       response = await fetch(this.base_url + options.url + query, {
         method: options.method,
         headers: {
           'Content-Type': 'application/json',
-          // Authorization: 'Bearer ' + String(accessToken),
+          Authorization: 'Bearer ' + String(accessToken),
           ...options.headers,
         },
         body: options.body ? JSON.stringify(options.body) : null,

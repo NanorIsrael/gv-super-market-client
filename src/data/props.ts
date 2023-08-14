@@ -32,3 +32,6 @@ export interface ProductProviderProps {
   setProducts: Dispatch<SetStateAction<ProductProp[] | null>>;
 }
 // Dispatch<SetStateAction<CartItem[] | []>>;
+export type ErrorType = {
+  [key: string]: string;
+};
