@@ -1,14 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useCart } from '../data/CartProvider';
 import { CartData } from '../data/props';
-import { useUser } from '../data/UserProvider';
+import { useCustomer } from '../data/UserProvider';
 
 export default function Header() {
-  const { user, logout } = useUser();
+  const { customer, logout } = useCustomer();
 
-  const customer = {
-    _id: '12345',
-  };
   const { cart } = useCart() as CartData;
   return (
     <header>
@@ -18,7 +15,7 @@ export default function Header() {
             CEDI Mart
           </a>
         </h1>
-        {user === undefined || user === null ? (
+        {customer === undefined || customer === null ? (
           <div>
             <button className="mx-2 hover:text-blue-600">
               <Link to="/login">Login</Link>
@@ -29,14 +26,14 @@ export default function Header() {
           </div>
         ) : (
           <>
-            {user !== null && (
+            {customer !== null && (
               <>
                 <div className="dropdown h-full">
                   <Link
-                    to={'/users/' + String(user.user.username)}
+                    to={'/users/' + String(customer.username)}
                     className={'mx-2 hover:text-blue-600'}
                   >
-                    {user.user.username}
+                    {customer.username}
                   </Link>
                   &nbsp;
                   <Link
@@ -68,7 +65,7 @@ export default function Header() {
         </form>
         <p>
           {/* <img src={''} alt="cart" /> */}
-          <Link to={`customer/${customer._id}/cart`}>
+          <Link to={`customer/${customer?._id}/cart`}>
             <span>&#128722;</span>
             <span>{cart.length}</span>
           </Link>

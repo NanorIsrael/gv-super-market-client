@@ -11,23 +11,35 @@ import { MeType } from './user';
 import { useApi } from './ApiProvider';
 
 interface UserType {
-  user: MeType | null;
+  customer: MeType | null;
   logout: () => void;
   login: (email: string, password: string) => Promise<string>;
-  setUser: Dispatch<SetStateAction<MeType | null>>;
+  setCustomer: Dispatch<SetStateAction<MeType | null>>;
 }
 const UserContext = createContext<UserType | null>(null);
 export default function UserProvider({ children }: any) {
-  const [user, setUser] = useState<MeType | null>(null);
+  const [customer, setCustomer] = useState<MeType | null>(null);
   const api = useApi();
 
+  // | { _id?: string; email: string; username: string }
+  // | undefined = user?.user;
+  if (customer) {
+    const encoder = new TextEncoder();
+    const data = `${customer?.username}${customer?.email}`;
+    const dataBuffer = encoder.encode(data);
+    // const decodedUint8Array = decoder.decode(new Uint8Array([...decodedData].map(char => char.charCodeAt(0))));
+
+    const base64Encoded = btoa(dataBuffer.toString());
+    customer._id = base64Encoded;
+  }
   useEffect(() => {
     void (async () => {
       if (api.isAuthenticated()) {
         const res = await api.get<MeType>('/users/me');
 
         if (res.ok) {
-          setUser(res.body);
+          setCustomer({ _id: customer?._id, ...res.body } as MeType);
+          console.log('cystomer', customer);
         }
       }
     })();
@@ -40,7 +52,7 @@ export default function UserProvider({ children }: any) {
       if (res === 'ok') {
         const result = await api.get<MeType>('/users/me');
         if (result.ok) {
-          setUser(result.body);
+          setCustomer({ _id: customer?._id, ...result.body } as MeType);
         }
       }
       return res;
@@ -50,16 +62,16 @@ export default function UserProvider({ children }: any) {
 
   const logout = useCallback(async () => {
     await api.logout();
-    setUser(null);
+    setCustomer(null);
   }, [api]);
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   return (
-    <UserContext.Provider value={{ user, setUser, login, logout }}>
+    <UserContext.Provider value={{ customer, setCustomer, login, logout }}>
       {children}
     </UserContext.Provider>
   );
 }
 
-export const useUser = () => {
+export const useCustomer = () => {
   return useContext(UserContext) as UserType;
 };

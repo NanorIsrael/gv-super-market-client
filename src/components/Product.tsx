@@ -15,7 +15,7 @@ export default function Product({
 }: ProductProp) {
   return (
     <figure>
-      <Link to={`/product/${_id}`}>
+      <Link to={`/products/${_id}`}>
         <img src={photo} alt="" width={100} height={100} />
       </Link>
       <figcaption>

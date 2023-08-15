@@ -6,11 +6,14 @@ import {
   useState,
 } from 'react';
 import { CartData, CartItem, ProductProp } from './props';
+import { useCustomer } from './UserProvider';
 
 const CartContext = createContext<CartData | null>(null);
 export default function CartProvider({ children }: { children: ReactElement }) {
-  const initCart = localStorage.getItem('cart')
-    ? (JSON.parse(localStorage.getItem('cart')!) as CartItem[])
+  const customer = useCustomer()?.customer;
+
+  const initCart = localStorage.getItem(`${customer?._id}`)
+    ? (JSON.parse(localStorage.getItem(`${customer?._id}`)!) as CartItem[])
     : [];
   console.log('cart from local', initCart);
   const [cart, setCart] = useState<CartItem[]>(initCart);
@@ -49,7 +52,7 @@ export default function CartProvider({ children }: { children: ReactElement }) {
             //   }
             // });
             // setProducts && setProducts(updatedProducts);
-            localStorage.setItem('cart', JSON.stringify([...cart]));
+            localStorage.setItem(`${customer?._id}`, JSON.stringify([...cart]));
           }
           return;
         } else {

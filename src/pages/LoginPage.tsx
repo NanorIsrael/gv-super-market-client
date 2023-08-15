@@ -5,13 +5,13 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import InputField from '../components/InputField';
 import { Modal } from '../components/Modal';
 import { ErrorType } from '../data/props';
-import { useUser } from '../data/UserProvider';
+import { useCustomer } from '../data/UserProvider';
 
 export default function LoginPage() {
   const [formErrors, setFormErrors] = useState<ErrorType>({});
   const usernameRef = useRef() as MutableRefObject<HTMLInputElement>;
   const passRef = useRef() as MutableRefObject<HTMLInputElement>;
-  const user = useUser();
+  const user = useCustomer();
   const navigate = useNavigate();
   const location = useLocation();
 

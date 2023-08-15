@@ -3,19 +3,20 @@ import Product from '../components/Product';
 import { useCart } from '../data/CartProvider';
 import { useProducts } from '../data/ProductsProvider';
 import { CartData, CartItem, ProductProp } from '../data/props';
+import { useCustomer } from '../data/UserProvider';
 
 export default function Cart() {
   const { cart, setCart } = useCart() as CartData;
   const products = useProducts()?.products;
-
-  const customer = {
-    _id: '12345',
-  };
+  const customer = useCustomer().customer;
 
   const handleCartItemRemove = (item: ProductProp) => {
     const updatedCart = cart.filter((prod) => prod.id !== item._id);
     setCart(updatedCart);
-    localStorage.setItem('cart', JSON.stringify([...updatedCart]));
+    localStorage.setItem(
+      `${customer?._id as string}`,
+      JSON.stringify([...updatedCart]),
+    );
   };
 
   const RenderCartItems = (item: CartItem) =>
@@ -35,7 +36,7 @@ export default function Cart() {
           />
           <div>
             <button onClick={() => handleCartItemRemove(p)}>Remove</button>
-            <Link to={`/product/${p._id}/confirm`}>
+            <Link to={`/products/${p._id}/confirm`}>
               <button>Edit</button>
             </Link>
           </div>
@@ -69,7 +70,7 @@ export default function Cart() {
         )}
       </section>
       <section>
-        <Link to={`/customer/${customer._id}/checkout`}>
+        <Link to={`/customer/${customer?._id}/checkout`}>
           {cart.length > 0 && <button>Checkout</button>}
         </Link>
       </section>

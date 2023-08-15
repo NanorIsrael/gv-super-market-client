@@ -34,7 +34,7 @@ export default function Home() {
                     photo={`./images/${p.photo}`}
                     isAvailable={p.isAvailable}
                   />
-                  <Link to={`/product/${p._id}`}>
+                  <Link to={`/products/${p._id}`}>
                     <button>Buy</button>
                   </Link>
                 </div>

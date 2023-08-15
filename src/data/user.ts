@@ -15,7 +15,13 @@ export interface LoginForm {
 }
 
 export interface MeType {
-  user: {
-    username: string;
-  };
+  username: string;
+  email: string;
+  _id?: string;
 }
+// export interface MeType {
+//   user: {
+//     username: string;
+//     email: string;
+//   };
+// }

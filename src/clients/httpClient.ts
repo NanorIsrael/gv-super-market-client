@@ -112,6 +112,7 @@ export default class httpClient {
         body: options.body ? JSON.stringify(options.body) : null,
         credentials: 'include',
       });
+      console.log(response);
     } catch (error) {
       response = {
         ok: false,
