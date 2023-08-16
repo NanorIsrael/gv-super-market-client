@@ -3,24 +3,38 @@ import { useNavigate } from 'react-router-dom';
 import { Modal } from '../components/Modal';
 import { useApi } from '../data/ApiProvider';
 import { useCart } from '../data/CartProvider';
-import { CartData, CartItem } from '../data/props';
+import { useProducts } from '../data/ProductsProvider';
+import { CartData, CartItem, ProductProp } from '../data/props';
 import { useCustomer } from '../data/UserProvider';
 
 export default function CheckOutPage() {
   const [error, setError] = useState(false);
   const { customer } = useCustomer();
-  const { cart } = useCart() as CartData;
+  const { cart, setCart } = useCart() as CartData;
   const api = useApi();
   const navigate = useNavigate();
+  const setProducts = useProducts()?.setProducts;
 
   const handleCheckout = async () => {
-    const res = await api.post<CartItem[], null>('/products', cart);
-    console.log('checkoutres', res.ok);
+    if (cart.length > 0) {
+      const res = await api.post<CartItem[], null>('/customers', cart);
 
-    if (res.ok) {
-      navigate(`/customer/${customer?._id}/orders`);
+      if (res.ok) {
+        localStorage.setItem(`${customer?._id}`, '[]');
+        setCart([]);
+        const res = await api.get<{ products: ProductProp[] | null }>(
+          '/products',
+        );
+        if (res.ok) {
+          setProducts &&
+            setProducts(res.body?.products as ProductProp[] | null);
+        }
+        navigate(`/customer/${customer?._id}/orders`);
+      } else {
+        setError(true);
+      }
     } else {
-      setError(true);
+      navigate('/');
     }
   };
   return (

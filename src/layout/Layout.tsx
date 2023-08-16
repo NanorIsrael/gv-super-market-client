@@ -4,10 +4,12 @@ import Header from '../components/Header';
 
 export default function Layout({ children }: { children: ReactElement }) {
   return (
-    <div className="App">
+    <>
       <Header />
-      {children}
-      <Footer />
-    </div>
+      {/* <main className='page-height'> */}
+        {children}
+      {/* </main> */}
+      {/* <Footer /> */}
+    </>
   );
 }

@@ -90,8 +90,6 @@ export default class httpClient {
       query = '?' + query;
     }
     try {
-      // console.log('call backend')
-
       const accessToken = localStorage.getItem('accessToken');
       if (
         !accessToken &&
@@ -101,7 +99,6 @@ export default class httpClient {
       ) {
         throw new Error('Access token not found');
       }
-      console.log('call backend');
       response = await fetch(this.base_url + options.url + query, {
         method: options.method,
         headers: {
@@ -112,7 +109,6 @@ export default class httpClient {
         body: options.body ? JSON.stringify(options.body) : null,
         credentials: 'include',
       });
-      console.log(response);
     } catch (error) {
       response = {
         ok: false,

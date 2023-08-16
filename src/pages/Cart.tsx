@@ -11,7 +11,7 @@ export default function Cart() {
   const customer = useCustomer().customer;
 
   const handleCartItemRemove = (item: ProductProp) => {
-    const updatedCart = cart.filter((prod) => prod.id !== item._id);
+    const updatedCart = cart.filter((prod) => prod.product_id !== item._id);
     setCart(updatedCart);
     localStorage.setItem(
       `${customer?._id as string}`,
@@ -21,8 +21,8 @@ export default function Cart() {
 
   const RenderCartItems = (item: CartItem) =>
     products?.map((p) =>
-      p._id === item.id ? (
-        <div key={p._id}>
+      p._id === item.product_id ? (
+        <div key={p._id} className='cart-items'>
           <Product
             _id={p._id}
             name={p.name}
@@ -34,25 +34,35 @@ export default function Cart() {
             isAvailable={p.isAvailable}
             isDetail
           />
-          <div>
-            <button onClick={() => handleCartItemRemove(p)}>Remove</button>
+          <div className="flex flex-row">
             <Link to={`/products/${p._id}/confirm`}>
-              <button>Edit</button>
+              <button className="m-1 p-1 text-white text-center font-bold bg-green-500 w-full">
+                Edit
+              </button>
             </Link>
+            <button
+              className="my-1 mx-2 p-1 text-white text-center font-bold bg-red-400 w-6/12 md: h-8 w-full"
+              onClick={() => handleCartItemRemove(p)}
+            >
+              Remove
+            </button>
           </div>
         </div>
       ) : null,
     );
 
   return (
-    <article>
-      <h2 className="hero">Happy Shopping!</h2>
+    <article className="flex flex-col justify-center items-center p-4 text-start page-height">
+      <h2 className="font-extrabold text-xl m-1">Happy Shopping!</h2>
       <section>
         <Link to={'/'}>
-          <button>Continue Shoping</button>
+          <button className="m-1 p-1 text-white text-center font-bold bg-green-500 w-full">
+            Continue Shoping
+          </button>
         </Link>
       </section>
-      <section id="movies_search_container">
+      
+      <section className="m-4">
         {cart == null ? (
           <>
             <p>Loading...</p>
@@ -69,9 +79,15 @@ export default function Cart() {
           </>
         )}
       </section>
-      <section>
-        <Link to={`/customer/${customer?._id}/checkout`}>
-          {cart.length > 0 && <button>Checkout</button>}
+      <section className="m-1 p-1 flex justify-center w-full">
+        <Link to={`/customer/${customer?._id}/checkout`} 
+        className={'checkout-btn text-white text-center font-bold bg-green-500 py-3 round'}
+        >
+          {cart.length > 0 && (
+            <button className="m-1 text-white rounded text-center font-bold bg-green-500">
+              Checkout
+            </button>
+          )}
         </Link>
       </section>
     </article>

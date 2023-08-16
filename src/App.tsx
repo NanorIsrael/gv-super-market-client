@@ -12,6 +12,7 @@ import Cart from './pages/Cart';
 import CheckOutPage from './pages/Checkout';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
+import OderDetails from './pages/OrderDetails';
 import OrdersPage from './pages/OrdersPage';
 import ProductDetail from './pages/Product';
 import RegistrationPageWithFlash from './pages/SignupPage';
@@ -35,9 +36,9 @@ function App() {
                 <Route
                   path="/signup"
                   element={
-                    <PublicRoute>
-                      <RegistrationPageWithFlash />
-                    </PublicRoute>
+                    // <PublicRoute>
+                    <RegistrationPageWithFlash />
+                    /* </PublicRoute> */
                   }
                 />
                 <Route path="/" element={<HomePage />} />
@@ -70,6 +71,10 @@ function App() {
                         <Route
                           path={`customer/:id/checkout`}
                           element={<CheckOutPage />}
+                        />
+                        <Route
+                          path={`customer/cart/:id`}
+                          element={<OderDetails />}
                         />
                         <Route path="*" element={<Navigate to="/" />} />
                       </Routes>

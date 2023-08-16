@@ -14,39 +14,39 @@ export default function Product({
   isAvailable,
 }: ProductProp) {
   return (
-    <figure>
+    <figure className='cart-items '>
       <Link to={`/products/${_id}`}>
-        <img src={photo} alt="" width={100} height={100} />
+        <img src={photo} alt="" width={200} height={100} className={'my-2'} />
       </Link>
-      <figcaption>
+      <figcaption className='m-2'>
         <p>
           <strong>item:</strong>
-          <span>{name}</span>
+          <span className="m-1">{name}</span>
         </p>
         <p>
           <strong>price:</strong>
-          <span>
+          <span className="m-1 text-sm">
             <strong>GH¢</strong>
             {price.toFixed(2)}
           </span>{' '}
         </p>
         <p>
-          <strong>Available:</strong>
-          <span>{isAvailable ? 'Yes' : 'No'}</span>{' '}
+          <strong>available:</strong>
+          <span className="m-1">{isAvailable ? 'Yes' : 'No'}</span>{' '}
         </p>
         {isDetail && (
           <>
             <p>
               <strong>quantity:</strong>
-              {quantity}
+              <span className="m-1">{quantity}</span>
             </p>
             <p>
               <strong>sku:</strong>
-              {sku}
+              <span className="m-1">{sku}</span>
             </p>
             <p>
               <strong>category:</strong>
-              {category}
+              <span className="m-1 lowercase">{category}</span>
             </p>
           </>
         )}
@@ -57,7 +57,7 @@ export default function Product({
               {/* <select>
                   <option>{sku}</option>
               </select> */}
-              {sku}
+              <span className="m-1">{sku}</span>
             </p>
           </>
         )}

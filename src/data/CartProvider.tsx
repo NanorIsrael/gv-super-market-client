@@ -15,7 +15,6 @@ export default function CartProvider({ children }: { children: ReactElement }) {
   const initCart = localStorage.getItem(`${customer?._id}`)
     ? (JSON.parse(localStorage.getItem(`${customer?._id}`)!) as CartItem[])
     : [];
-  console.log('cart from local', initCart);
   const [cart, setCart] = useState<CartItem[]>(initCart);
   //   const { products, setProducts } = useProducts() as ProductProviderProps;
   //   const flash = useFlash();
@@ -31,11 +30,11 @@ export default function CartProvider({ children }: { children: ReactElement }) {
       if (!item) {
         return;
       } else {
-        const foundItem = cart.filter((p) => p.id === item._id);
+        const foundItem = cart.filter((p) => p.product_id === item._id);
         if (foundItem.length > 0) {
           if (foundItem[0].quantity !== orderQuantity) {
             cart.filter((i) => {
-              if (i.id === item._id) {
+              if (i.product_id === item._id) {
                 i.quantity = orderQuantity;
               }
               return i;
@@ -57,7 +56,7 @@ export default function CartProvider({ children }: { children: ReactElement }) {
           return;
         } else {
           const localCart: CartItem = {
-            id: item._id!,
+            product_id: item._id!,
             quantity: orderQuantity,
             sku: item.sku!,
           };

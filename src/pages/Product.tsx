@@ -7,7 +7,7 @@ export default function ProductDetail() {
   const navigate = useNavigate();
 
   return (
-    <>
+    <article className="flex flex-col justify-center items-center p-4 page-height">
       {product === undefined ? (
         <p>Loading...</p>
       ) : product === null ? (
@@ -25,10 +25,20 @@ export default function ProductDetail() {
             sku={product.sku}
             isAvailable={product.isAvailable}
           />
-          <button onClick={() => navigate(`confirm`)}>Buy</button>
-          <button onClick={() => navigate('/')}>Contiue Shoping</button>
+          <button
+            className="m-1 p-1 text-white text-center bg-black sm: w-full md:w-4/12"
+            onClick={() => navigate(`confirm`)}
+          >
+            Buy
+          </button>
+          <button
+            className="m-1 p-1 text-white text-center font-bold bg-green-500 sm: w-full md:w-4/12"
+            onClick={() => navigate('/')}
+          >
+            Continue Shopping
+          </button>
         </>
       )}
-    </>
+    </article>
   );
 }

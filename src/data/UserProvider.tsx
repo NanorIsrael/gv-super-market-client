@@ -9,9 +9,11 @@ import {
 } from 'react';
 import { MeType } from './user';
 import { useApi } from './ApiProvider';
+import { useNavigate } from 'react-router-dom';
 
 interface UserType {
   customer: MeType | null;
+
   logout: () => void;
   login: (email: string, password: string) => Promise<string>;
   setCustomer: Dispatch<SetStateAction<MeType | null>>;
@@ -20,7 +22,7 @@ const UserContext = createContext<UserType | null>(null);
 export default function UserProvider({ children }: any) {
   const [customer, setCustomer] = useState<MeType | null>(null);
   const api = useApi();
-
+  const navigate = useNavigate()
   // | { _id?: string; email: string; username: string }
   // | undefined = user?.user;
   if (customer) {
@@ -32,18 +34,18 @@ export default function UserProvider({ children }: any) {
     const base64Encoded = btoa(dataBuffer.toString());
     customer._id = base64Encoded;
   }
+
   useEffect(() => {
     void (async () => {
       if (api.isAuthenticated()) {
-        const res = await api.get<MeType>('/users/me');
+        const res = await api.get<{ user: MeType }>('/users/me');
 
         if (res.ok) {
-          setCustomer({ _id: customer?._id, ...res.body } as MeType);
-          console.log('cystomer', customer);
+          setCustomer({ _id: customer?._id, ...res.body?.user } as MeType);
         }
       }
     })();
-  }, [api]);
+  }, [api, customer?._id]);
 
   const login = useCallback(
     async (email: string, password: string) => {
@@ -63,6 +65,7 @@ export default function UserProvider({ children }: any) {
   const logout = useCallback(async () => {
     await api.logout();
     setCustomer(null);
+    navigate('/')
   }, [api]);
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   return (

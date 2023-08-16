@@ -16,7 +16,7 @@ export default function ProductsProvider({
   children: ReactElement;
 }) {
   // const flash = useFlash();
-
+  console.log('called')
   const [products, setProducts] = useState<ProductProp[] | null>([]);
   const api = useApi();
 

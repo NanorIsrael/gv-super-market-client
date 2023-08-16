@@ -76,7 +76,7 @@ function RegistrationPage() {
   };
 
   return (
-    <>
+    <article className="page-height">
       <section className="p-7 my-0 mx-auto w-11/12 flex flex-col justify-center items-center">
         <h1 className="">Register</h1>
         {formErrors && formErrors.error ? (
@@ -117,7 +117,7 @@ function RegistrationPage() {
           <button
             type={'submit'}
             className={
-              'rounded px-6 py-2 color text-white hover:opacity-50 border-none bg-orange-500'
+              'rounded px-6 py-2 color text-white hover:opacity-50 border-none bg-black w-full'
             }
           >
             submit
@@ -126,20 +126,20 @@ function RegistrationPage() {
         <hr />
         <p className={'mb-20'}>
           Have an account already?{' '}
-          <Link to="/login" className={'underline text-orange-500'}>
+          <Link to="/login" className={'underline text-green-500'}>
             Login here
           </Link>
         </p>
       </section>
-    </>
+    </article>
   );
 }
 
 export default function RegistrationPageWithFlash() {
   return (
-    <FlashProvider>
-      <FlashMessage />
-      <RegistrationPage />
-    </FlashProvider>
+    // <FlashProvider>
+    //    <FlashMessage />
+    <RegistrationPage />
+    // </FlashProvider>
   );
 }

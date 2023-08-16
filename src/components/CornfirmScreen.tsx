@@ -12,7 +12,7 @@ export default function ConfirmScreen() {
   const { cart, addToCart } = useCart() as CartData;
   const { product } = useItem();
   const navigate = useNavigate();
-  const itemInCart = cart.filter((p) => p.id === product?._id);
+  const itemInCart = cart.filter((p) => p.product_id === product?._id);
   const [orderQuantity, setOrderQuantity] = useState<number>(1);
 
   return (
@@ -22,7 +22,7 @@ export default function ConfirmScreen() {
       ) : product === null ? (
         <p>Something might have gone wrong</p>
       ) : (
-        <>
+        <div className="flex flex-col justify-center items-center p-4 text-start">
           <Product
             isConfirm
             _id={product._id}
@@ -35,9 +35,10 @@ export default function ConfirmScreen() {
             isAvailable={product.isAvailable}
           />
 
-          <p>
-            <strong>quantity:</strong>
+          <p className="flex flex-row w-full">
+            <strong className="text-start">quantity:</strong>
             <input
+              className="w-8/12 mx-2  p-0 text-black rounded-none"
               type={'number'}
               min={1}
               max={product.quantity}
@@ -52,6 +53,7 @@ export default function ConfirmScreen() {
           )}
 
           <button
+            className="m-1 p-1 text-white text-center bg-black w-full"
             onClick={() => {
               if (product.quantity > 0 || !product.isAvailable) {
                 addToCart(product, orderQuantity);
@@ -66,13 +68,14 @@ export default function ConfirmScreen() {
             Confirm
           </button>
           <button
+            className="m-1 p-1 text-black text-center bg-white text-black w-full"
             onClick={() => {
               navigate(-1);
             }}
           >
             Cancel
           </button>
-        </>
+        </div>
       )}
     </Modal>
   );
