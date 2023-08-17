@@ -14,11 +14,11 @@ export default function Product({
   isAvailable,
 }: ProductProp) {
   return (
-    <figure className='cart-items '>
+    <figure className="cart-items ">
       <Link to={`/products/${_id}`}>
         <img src={photo} alt="" width={200} height={100} className={'my-2'} />
       </Link>
-      <figcaption className='m-2'>
+      <figcaption className="m-2">
         <p>
           <strong>item:</strong>
           <span className="m-1">{name}</span>

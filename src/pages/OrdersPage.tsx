@@ -25,7 +25,7 @@ export default function OrdersPage() {
   }, [api]);
   return (
     <article className="flex p-8 flex-col justify-center items-center page-height">
-      <h3 className='font-bold text-2xl p-2'>All Orders</h3>
+      <h3 className="font-bold text-2xl p-2">All Orders</h3>
       {/* orders to be tabulated here */}
       <>
         {orders === undefined ? (
@@ -35,14 +35,30 @@ export default function OrdersPage() {
         ) : (
           <>
             <ol>
-              <li className={'flex flex-row justify-around items-center p-2 m-4 font-bold'}><span>Order ID</span> <span>Date</span></li>
-              {orders && 
+              <li
+                className={
+                  'flex flex-row justify-around items-center p-2 m-4 font-bold'
+                }
+              >
+                <span>Order ID</span> <span>Date</span>
+              </li>
+              {orders &&
                 orders.map((line) => (
-                  <li key={line.order_id} className={'flex flex-row justify-between items-center p-2 m-4 mx-8'}>
-                    <Link to={`/customer/cart/${line.order_id}`} className='mx-8'>
+                  <li
+                    key={line.order_id}
+                    className={
+                      'flex flex-row justify-between items-center p-2 m-4 mx-8'
+                    }
+                  >
+                    <Link
+                      to={`/customer/cart/${line.order_id}`}
+                      className="mx-8"
+                    >
                       {line.order_id}
                     </Link>
-                    <span className='mx-8 font-bold'>{new Date(line.order_date).toISOString()}</span>
+                    <span className="mx-8 font-bold">
+                      {new Date(line.order_date).toISOString()}
+                    </span>
                   </li>
                 ))}
             </ol>

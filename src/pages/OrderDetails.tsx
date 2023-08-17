@@ -30,7 +30,7 @@ export default function OderDetails() {
     if (products) {
       return products?.map((p) =>
         p._id === item.product_id ? (
-          <div key={p._id} className='p-8 m-3 cart-items '>
+          <div key={p._id} className="p-8 m-3 cart-items ">
             <Product
               _id={p._id}
               name={p.name}
@@ -53,7 +53,9 @@ export default function OderDetails() {
       <h2 className="font-extrabold text-xl m-1">Order Details!</h2>
       <section>
         <Link to={'/'}>
-          <button className="m-1 p-1 text-white text-center font-bold bg-green-500 sm:w-full  ">Continue Shopping</button>
+          <button className="m-1 p-1 text-white text-center font-bold bg-green-500 sm:w-full  ">
+            Continue Shopping
+          </button>
         </Link>
       </section>
       <section>

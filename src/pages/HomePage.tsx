@@ -6,10 +6,10 @@ import { useProducts } from '../data/ProductsProvider';
 import { ProductProp, ProductProviderProps } from '../data/props';
 
 export default function Home() {
-  const {products, setProducts} = useProducts() as ProductProviderProps;
+  const { products, setProducts } = useProducts() as ProductProviderProps;
 
   const api = useApi();
-  console.log('hello')
+  console.log('hello');
   useEffect(() => {
     (async () => {
       const res = await api.get<{ products: ProductProp[] | null }>(
@@ -34,7 +34,7 @@ export default function Home() {
         ) : products === null ? (
           <p>Oops!, something might have gone wrong, try again later</p>
         ) : (
-          <div className='products'>
+          <div className="products">
             {products &&
               products.map(
                 (p) =>

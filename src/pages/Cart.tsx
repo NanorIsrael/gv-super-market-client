@@ -22,7 +22,7 @@ export default function Cart() {
   const RenderCartItems = (item: CartItem) =>
     products?.map((p) =>
       p._id === item.product_id ? (
-        <div key={p._id} className='cart-items'>
+        <div key={p._id} className="cart-items">
           <Product
             _id={p._id}
             name={p.name}
@@ -61,7 +61,7 @@ export default function Cart() {
           </button>
         </Link>
       </section>
-      
+
       <section className="m-4">
         {cart == null ? (
           <>
@@ -80,8 +80,11 @@ export default function Cart() {
         )}
       </section>
       <section className="m-1 p-1 flex justify-center w-full">
-        <Link to={`/customer/${customer?._id}/checkout`} 
-        className={'checkout-btn text-white text-center font-bold bg-green-500 py-3 round'}
+        <Link
+          to={`/customer/${customer?._id}/checkout`}
+          className={
+            'checkout-btn text-white text-center font-bold bg-green-500 py-3 round'
+          }
         >
           {cart.length > 0 && (
             <button className="m-1 text-white rounded text-center font-bold bg-green-500">

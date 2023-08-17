@@ -22,7 +22,7 @@ const UserContext = createContext<UserType | null>(null);
 export default function UserProvider({ children }: any) {
   const [customer, setCustomer] = useState<MeType | null>(null);
   const api = useApi();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // | { _id?: string; email: string; username: string }
   // | undefined = user?.user;
   if (customer) {
@@ -65,7 +65,7 @@ export default function UserProvider({ children }: any) {
   const logout = useCallback(async () => {
     await api.logout();
     setCustomer(null);
-    navigate('/')
+    navigate('/');
   }, [api]);
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   return (

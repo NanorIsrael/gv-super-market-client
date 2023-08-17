@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: ReactElement }) {
     <>
       <Header />
       {/* <main className='page-height'> */}
-        {children}
+      {children}
       {/* </main> */}
       {/* <Footer /> */}
     </>

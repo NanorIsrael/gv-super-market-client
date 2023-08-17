@@ -7,15 +7,17 @@ import { useCustomer } from '../data/UserProvider';
 
 export default function Header() {
   const { customer, logout } = useCustomer();
-  const {products, setProducts}  = useProducts() as ProductProviderProps
-  const searchRef = useRef() as MutableRefObject<HTMLInputElement>
+  const { products, setProducts } = useProducts() as ProductProviderProps;
+  const searchRef = useRef() as MutableRefObject<HTMLInputElement>;
 
-  const handlesearch = ( ) => {
+  const handlesearch = () => {
     if (products && searchRef.current) {
-      const searchedItems = products.filter((p => p.name.includes(searchRef.current.value)))
-      setProducts(searchedItems)
+      const searchedItems = products.filter((p) =>
+        p.name.includes(searchRef.current.value),
+      );
+      setProducts(searchedItems);
     }
-  }
+  };
 
   const { cart } = useCart() as CartData;
   return (
@@ -52,12 +54,12 @@ export default function Header() {
       </nav>
       <div className="nav-links p-4">
         <div className="nav-links">
-          <input 
-          type="search"
-           name="searchbox" 
-           placeholder="search item" 
-           ref={searchRef}
-           />
+          <input
+            type="search"
+            name="searchbox"
+            placeholder="search item"
+            ref={searchRef}
+          />
           <button
             className="bg-green-400 px-2 py-1 mx-2 text-white"
             onClick={handlesearch}
@@ -76,21 +78,26 @@ export default function Header() {
               </button>
             </div>
           ) : (
-            <div className='nav-links p-1'>
+            <div className="nav-links p-1">
               <button className="py-1 px-4 bg-orange-100 m-1">
                 {/* <img src={''} alt="cart" /> */}
-                <Link to={`customer/${customer?._id}/cart`} className={'flex flex-row'} >
+                <Link
+                  to={`customer/${customer?._id}/cart`}
+                  className={'flex flex-row'}
+                >
                   <span>&#128722;</span>
                   <span className="mx-1">{cart.length}</span>
                 </Link>
               </button>
-             
-                <button
-                  className={
-                    'bg-black px-2 py-1 text-white mx-2 hover:text-yellow-600'
-                  }
-                  onClick={logout}
-                >Logout</button>
+
+              <button
+                className={
+                  'bg-black px-2 py-1 text-white mx-2 hover:text-yellow-600'
+                }
+                onClick={logout}
+              >
+                Logout
+              </button>
             </div>
           )}
         </>
