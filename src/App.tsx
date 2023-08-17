@@ -10,6 +10,7 @@ import UserProvider, { useCustomer } from './data/UserProvider';
 import Layout from './layout/Layout';
 import Cart from './pages/Cart';
 import CheckOutPage from './pages/Checkout';
+import DashBoard from './pages/DashBoard';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import OderDetails from './pages/OrderDetails';
@@ -75,6 +76,10 @@ function App() {
                         <Route
                           path={`customer/cart/:id`}
                           element={<OderDetails />}
+                        />
+                        <Route
+                          path={`admin/dashboard`}
+                          element={<DashBoard />}
                         />
                         <Route path="*" element={<Navigate to="/" />} />
                       </Routes>

@@ -17,6 +17,7 @@ export interface LoginForm {
 export interface MeType {
   username: string;
   email: string;
+  isAdmin: boolean;
   _id?: string;
 }
 // export interface MeType {

@@ -40,13 +40,6 @@ export default function Header() {
                 >
                   Orders
                 </NavLink>
-                &nbsp;
-                <NavLink
-                  to={'/users/' + String(customer.username)}
-                  className={'mx-2 hover:text-blue-600'}
-                >
-                  {customer.username}
-                </NavLink>
               </div>
             </>
           )}
@@ -79,6 +72,17 @@ export default function Header() {
             </div>
           ) : (
             <div className="nav-links p-1">
+              <Link
+                to={'/users/' + String(customer.username)}
+                className={'mx-2 hover:text-blue-600 capitalize'}
+              >
+                {customer.username}
+              </Link>
+              {customer.isAdmin && (
+                <Link to="/admin/dashboard" className="text-blue-500 mx-2">
+                  Edit store
+                </Link>
+              )}
               <button className="py-1 px-4 bg-orange-100 m-1">
                 {/* <img src={''} alt="cart" /> */}
                 <Link
